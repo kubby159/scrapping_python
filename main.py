@@ -5,25 +5,25 @@ from bs4 import BeautifulSoup
 indeed_result = requests.get('https://www.indeed.com/jobs?q=python&limit=50')
 
 
-spans = []
+
 
 def parsing_proc(result_val):
 
   indeed_soup = BeautifulSoup(result_val.text, "html.parser")
   
-  pagination = indeed_soup.find("ul", {"class": "pagination-list"})
+  pagination = indeed_soup.find("div", {"class": "pagination"})
 
-  pages = pagination.find_all('a')
+  links = pagination.find_all('a')
   
-  temp_spans = []
+  pages = []
 
-  for page in pages:
+  for link in links[:-1]:
   
-    temp_spans.append(page.find('span'))
+    pages.append(int(link.string))
 
 
-  print(temp_spans[:-1])
-
+  
+  max_page = pages[-1]
     
 
     
