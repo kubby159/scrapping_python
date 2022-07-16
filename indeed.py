@@ -31,9 +31,7 @@ def extract_indeed_jobs(last_page):
       soup = bs(result.text,'html.parser')
       results = soup.find_all('h2',{'class':'jobTitle'})
       
-      for result in results:
-          print(result.string)
-    
+    print(results)
 
     
     return jobs
