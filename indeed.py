@@ -26,12 +26,24 @@ def extract_indeed_pages():
 
 def extract_indeed_jobs(last_page):
     jobs = []
-    for page in range(last_page):
-      result =req.get(f'{INDEED_URL}&start={page*LIMIT}')
-      soup = bs(result.text,'html.parser')
-      results = soup.find_all('h2',{'class':'jobTitle'})
+    # for page in range(last_page):
+    result =req.get(f'{INDEED_URL}&start={0*LIMIT}')
+    soup = bs(result.text,'html.parser')
+    results = soup.find_all('td',{'class':'resultContent'})
+    
+    for result in results:
+        title = result.find('h2',{'class': 'jobTitle'})
+        company = result.find('span',{'class': 'companyName'})
+        if company.find('a') is not None:
+            print(company.find('a').string)
+        else:
+            print(company.string)
+    
       
-    print(results)
+      
+
+    
+   
 
     
     return jobs
